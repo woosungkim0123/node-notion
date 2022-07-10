@@ -1,38 +1,28 @@
 import express from "express";
+import fs from "fs";
+
 const app = express();
 
-// all 과 use 차이
+app.use(express.json());
 
-// all은 어떤 메서드로 보내든(post, delete든)
-// 항상 수행이 됨
-// api/doc 에 접속시 수행이 되지않음 (경로에 한해서만)
-app.all("/api", (req, res, next) => {
-  console.log("all");
-  next();
-});
-
-// 반대로 use의 경우 sky로도 호출, sky/doc으로 해도 호출
-app.use("/sky", (req, res, next) => {
-  console.log("use");
-  next();
-});
-
-// 이런식으로 가능하긴함
-app.all("/api*", (req, res, next) => {
-  console.log("all*");
-  next();
-});
-
-app.get("/", (req, res) => {
-  res.status(201).send("created");
-});
-
-app.use((req, res, next) => {
-  res.status(404).send("Not avaliable!@_@");
+app.get("/file1", (req, res) => {
+  // try {
+  //   const data = fs.readFileSync("/file.txt");
+  // } catch (error) {
+  //   res.status(404).send("File not found");
+  // }
+  // 파일이 다 읽어지면 데이터를 두번째 인자로 전달해서 콜백함수를 실행시켜줘
+  fs.readFile("/file.txt", (err, data) => {
+    // 마지막 안전망에 안걸림 => 첫번째 인자로 에러가 전달되었기 때문
+    // 비동기적인 것을 처리하고 있을 때는 마지막 안전망에 포착되지않음
+    if (err) {
+      res.status(404).send("File not found");
+    }
+  });
 });
 
 app.use((error, req, res, next) => {
   console.error(error);
-  res.status(500).send("Sorry try later;");
+  res.status(500).send("어딘가 에러발생");
 });
 app.listen(8080);
