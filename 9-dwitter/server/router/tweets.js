@@ -5,12 +5,6 @@ import * as tweetController from "../controller/tweet.js";
 import { validate } from "../middleware/validator.js";
 
 const router = express.Router();
-// validation 하는 이유
-// db에 접근해서 읽고 쓰고 하기 전에 네트워크 비용 같은 시간과 비용을 절약하기 위해
-// 저장하기 전에 데이터가 유효성검사하는게 좋음
-// sanitization를 통해 데이터를 일관성있게 보관하기 위해서
-// Contract Testing : Client와 server 간에 데이터를 주고 받을때(api 통신) 한번 알아보기
-// Proto-base 검증방법 이것도..
 
 const validateTweet = [
   body("text")
