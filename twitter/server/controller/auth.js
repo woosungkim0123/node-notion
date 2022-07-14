@@ -4,9 +4,9 @@ import {} from "express-async-errors";
 import * as userRepository from "../data/auth.js";
 
 // TODO: Make it secure!
-const jwtSecretKey = "F2dN7x8HVzBWaQuEEDnhsvHXRWqAR63z";
-const jwtExpiresInDays = "2d";
-const bcryptSaltRounds = 12;
+const jwtSecretKey = process.env.JWT_SECRET;
+const jwtExpiresInDays = process.env.JWT_EXPIRES_SEC;
+const bcryptSaltRounds = process.env.BCRYPT_SALT_ROUNDS;
 
 export async function signup(req, res) {
   const { username, password, name, email, url } = req.body;
