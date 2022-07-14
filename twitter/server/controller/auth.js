@@ -48,6 +48,8 @@ function createJwtToken(id) {
 }
 
 export async function me(req, res, next) {
+  // 미들웨어에서 체크했지만 다시 체크하는 이유
+  // 토큰에는 user_id만 넣으니까 해당 유저의 정보를 읽어오기위해
   const user = await userRepository.findById(req.userId);
   if (!user) {
     return res.status(404).json({ message: "User not found" });

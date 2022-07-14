@@ -1,7 +1,5 @@
 6-server/node_modules
 7-express/node_modules
 8-cors/node_modules
-9-dwitter/client/node_modules
-9-dwitter/server/node_modules
-10-validation/node_modules
-11-auth/node_modules
+twitter/client/node_modules
+twitter/server/node_modules
