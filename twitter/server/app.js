@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
@@ -8,15 +7,7 @@ import tweetsRouter from './router/tweets.js';
 import authRouter from './router/auth.js';
 import { config } from './config.js';
 import { initSocket } from './connection/socket.js';
-=======
-import express from "express";
-import "express-async-errors";
-import cors from "cors";
-import morgan from "morgan";
-import helmet from "helmet";
-import tweetsRouter from "./router/tweets.js";
-import authRouter from "./router/auth.js";
->>>>>>> 0623030b5808f20c393aa455e031db9c6717e358
+import { sequelize } from './db/database.js';
 
 const app = express();
 
@@ -37,5 +28,7 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-const server = app.listen(config.host.port);
-initSocket(server);
+sequelize.sync().then(() => {
+  const server = app.listen(config.host.port);
+  initSocket(server);
+});
