@@ -1,5 +1,2 @@
-6-server/node_modules
-7-express/node_modules
-8-cors/node_modules
-twitter/client/node_modules
-twitter/server/node_modules
+client/node_modules
+server/node_modules
