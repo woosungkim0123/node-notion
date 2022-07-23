@@ -1,13 +1,10 @@
-import MongoDb from "mongodb";
+import Mongoose from "mongoose";
 import { config } from "../config.js";
 
 let db;
 
 export async function connectDB() {
-  return MongoDb.MongoClient.connect(config.db.host) //
-    .then((client) => {
-      db = client.db();
-    });
+  return Mongoose.connect(config.db.host);
 }
 
 export function getUsers() {
